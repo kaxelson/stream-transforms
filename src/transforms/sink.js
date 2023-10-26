@@ -7,7 +7,7 @@ export const sink = () => {
 			callback()
 		},
 		flush(callback) {
-			console.log('sink finished')
+			// console.log('sink finished')
 			callback()
 		}
 	})
