@@ -1,0 +1,11 @@
+{
+  "extends": "@tsconfig/node16/tsconfig.json",
+  "compilerOptions": {
+    "sourceMap": true,
+    "declaration": true,
+    "declarationDir": "./build/types",
+    "outDir": "./build/esm",
+    "isolatedModules": true
+  },
+  "include": ["src/**/*"]
+}

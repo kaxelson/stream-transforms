@@ -1,6 +1,8 @@
+import * as R from 'ramda'
+
 import {Transform} from 'node:stream'
 
-export const onFinish = (fn) => {
+export const onFinish = (fn: () => any) => {
 	return new Transform({
 		objectMode: true,
 		transform(chunk, encoding, callback) {
@@ -14,7 +16,7 @@ export const onFinish = (fn) => {
 				.then(() => fn())
 				.then(result => {
 					// push the result if there is one
-					if (result) {
+					if (R.isNotNil(result)) {
 						this.push(result)
 					}
 					callback()

@@ -1,4 +1,4 @@
-import {describe, expect, jest, test} from '@jest/globals'
+import {describe, expect, test, vi} from 'vitest'
 
 import * as R from 'ramda'
 
@@ -11,7 +11,7 @@ import * as T from '../src/index.js'
 describe('withMaxConcurrency', () => {
 	test('withMaxConcurrency', async () => {
 		let concurrency = 0
-		const fn = jest.fn()
+		const fn = vi.fn()
 		await pipeline([
 			Readable.from(R.range(0, 100)),
 			T.withMaxConcurrency(10)(async x => {

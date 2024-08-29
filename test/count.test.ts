@@ -1,4 +1,4 @@
-import {describe, expect, jest, test} from '@jest/globals'
+import {describe, expect, test, vi} from 'vitest'
 
 import {Readable} from 'node:stream'
 import {pipeline} from 'node:stream/promises'
@@ -7,7 +7,7 @@ import * as T from '../src/index.js'
 
 describe('count', () => {
 	test('count', async () => {
-		const onCount = jest.fn()
+		const onCount = vi.fn()
 		await pipeline([
 			Readable.from(['x', 'y', 'z']),
 			T.count({onCount}),

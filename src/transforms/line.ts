@@ -1,8 +1,10 @@
+import * as R from 'ramda'
+
 import {EOL} from 'node:os'
 import {Transform} from 'node:stream'
 
 export const line = (separator = EOL) => {
-	let partial = ''
+	let partial: string | undefined = ''
 	return new Transform({
 		objectMode: true,
 		transform(chunk, encoding, callback) {
@@ -14,7 +16,7 @@ export const line = (separator = EOL) => {
 			callback()
 		},
 		flush(callback) {
-			if (partial.length > 0) {
+			if (R.isNotNil(partial) && partial.length > 0) {
 				this.push(partial)
 				partial = ''
 			}

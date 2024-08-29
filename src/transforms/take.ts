@@ -1,11 +1,11 @@
 import {Transform} from 'node:stream'
 
-export const skip = (n) => {
+export const take = (n: number) => {
 	let count = 0
 	return new Transform({
 		objectMode: true,
 		transform(chunk, encoding, callback) {
-			if (count++ >= n) {
+			if (count++ < n) {
 				this.push(chunk)
 			}
 			callback()

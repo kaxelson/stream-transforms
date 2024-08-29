@@ -1,21 +1,28 @@
 import {Transform} from 'node:stream'
 
-export const splitEvery = groupSize => {
-	let group = []
+export const splitOnChange = (valueFn: (x: any) => any) => {
+	let group: any[] = []
+	let value: any = null
 	return new Transform({
 		objectMode: true,
 		transform(chunk, encoding, callback) {
-			group.push(chunk)
-			if (group.length >= groupSize) {
+			const chunkValue = valueFn(chunk)
+			if (value === null) {
+				value = chunkValue
+			}
+			if (value !== chunkValue) {
 				this.push(group)
 				group = []
+				value = chunkValue
 			}
+			group.push(chunk)
 			callback()
 		},
 		flush(callback) {
 			if (group.length > 0) {
 				this.push(group)
 				group = []
+				value = null
 			}
 			callback()
 		}

@@ -1,6 +1,6 @@
 import {Transform} from 'node:stream'
 
-export const from = (fn) => {
+export const from = (fn: (x: any) => any) => {
 	return new Transform({
 		objectMode: true,
 		transform(chunk, encoding, callback) {
